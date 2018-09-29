@@ -4,7 +4,7 @@ services:
   - docker
 
 script:
-  - docker build . -tag bio-boris/condor
+  - docker build . --tag bio-boris/condor
 
 deploy:
   provider: script
