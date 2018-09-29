@@ -23,12 +23,12 @@ RUN cd /root && \
 RUN mkdir -p /usr/local/condor/run/condor /usr/local/condor/log/condor /usr/local/condor/lock/condor /usr/local/condor/lib/condor/spool /usr/local/condor/lib/condor/execute
 
 # Install java
-RUN yum update && yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel 
+RUN yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel 
 
 # Install docker binaries (setsebool:  SELinux is disabled. libsemanage.semanage_commit_sandbox: Error while renaming /etc/selinux/targeted/active to /etc/selinux/targeted/previous. (Invalid cross-device link).)
 RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo && yum install -y docker-ce
 # Also add the user to the groups that map to "docker" on Linux and "daemon" on Mac
-RUN usermod -a -G 0 kbase && usermod -a -G 999 kbase
+RUN useradd kbase && usermod -a -G 0 kbase && usermod -a -G 999 kbase
 
 
 # The BUILD_DATE value seem to bust the docker cache when the timestamp changes, move to
